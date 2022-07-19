@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -20,10 +19,10 @@ public class Main {
 
     public static String calc(String input) {
         String result = "";
+
         try {
             String text = romanNumeral(input);
             String[] arr = text.split(" ");
-
             if (interval(text)) {
                 switch (arr[1]) {
                     case "*" -> {
@@ -53,6 +52,8 @@ public class Main {
             System.out.println(ex + ": используются одновременно разные системы счисления");
         } catch (ArrayIndexOutOfBoundsException ex) {
             System.out.println(ex + ": строка не является математической операцией");
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
         return result;
     }
@@ -108,6 +109,7 @@ public class Main {
             }
             ROM_NUM_FLAG = true;
             result = a + " " + arr[1] + " " + b;
+
         }
 
         return result;
@@ -120,13 +122,13 @@ public class Main {
             if (number < 0)
                 throw new IllegalArgumentException();
         } catch (IllegalArgumentException e) {
-            System.out.println(e + " в римской системе нет отрицательных чисел");
+            System.out.println(e + ": в римской системе нет отрицательных чисел");
         }
         try {
             if (number == 0)
                 throw new IllegalArgumentException();
         } catch (IllegalArgumentException e) {
-            System.out.println(e + " в римской системе нет значения 0");
+            System.out.println(e + ": в римской системе нет значения 0");
         }
 
         String romanValue = "";
@@ -150,13 +152,18 @@ public class Main {
         return size;
     }
 
-    public static boolean interval(String text) {
+    public static boolean interval(String text) throws Exception {
         boolean flag = false;
+        text = romanNumeral(text);
         String[] arr = text.split(" ");
+
+
         if (parse(arr[0]) > 0 && parse(arr[0]) < 11 &&
                 parse(arr[2]) > 0 && parse(arr[2]) < 11) {
             flag = true;
-        }
+        } else throw new Exception("не в интервале");
+
         return flag;
     }
+
 }
