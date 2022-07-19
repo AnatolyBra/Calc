@@ -122,6 +122,12 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println(e + " в римской системе нет отрицательных чисел");
         }
+        try {
+            if (number == 0)
+                throw new IllegalArgumentException();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e + " в римской системе нет значения 0");
+        }
 
         String romanValue = "";
         int N = number;
